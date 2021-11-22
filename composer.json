@@ -1,0 +1,24 @@
+{
+    "name": "jaddek/ixopay-sdk-php",
+    "description": "Ixopay (v3) http api client",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0",
+        "symfony/http-client": "^5.3",
+        "symfony/validator": "^5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jaddek\\Ixopay\\Http\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tonynazarov",
+            "email": "tonynazarov@gmail.com"
+        }
+    ]
+}
