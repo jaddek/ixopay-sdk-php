@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jaddek\Ixopay\Http\Request\Transaction;
 
-use Jaddek\Ixopay\Http\Endpoint\TransactionEnum;
+use Jaddek\Ixopay\Http\Enum\TransactionEnum;
 use Jaddek\Ixopay\Http\SerializableTrait;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Length;

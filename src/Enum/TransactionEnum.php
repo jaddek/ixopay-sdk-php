@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jaddek\Ixopay\Http\Endpoint;
+namespace Jaddek\Ixopay\Http\Enum;
 
 interface TransactionEnum
 {
