@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jaddek\Ixopay\Http\Endpoint;
 
+use Jaddek\Ixopay\Http\ConnectorCredentials;
+use Jaddek\Ixopay\Http\UserCredentials;
 use Jaddek\Ixopay\Http\Request\Transaction\TransactionCapture;
 use Jaddek\Ixopay\Http\Request\Transaction\TransactionDebit;
 use Jaddek\Ixopay\Http\Request\Transaction\TransactionDeRegister;
@@ -16,94 +18,148 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class Transactions extends Endpoint implements TransactionInterface
 {
-    public function debit(TransactionDebit $transaction): ResponseInterface
+    public function debit(
+        TransactionDebit     $transaction,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/debit', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url, [
-            'json' => $transaction
-        ]);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/debit',
+            [
+                'json' => $transaction
+            ],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function preauthorize(TransactionDebit $transaction): ResponseInterface
+    public function preauthorize(
+        TransactionDebit     $transaction,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/preauthorize', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url, [
-            'json' => $transaction
-        ]);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/preauthorize',
+            [
+                'json' => $transaction
+            ],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function capture(TransactionCapture $capture): ResponseInterface
+    public function capture(
+        TransactionCapture   $capture,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/capture', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url, [
-            'json' => $capture
-        ]);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/capture',
+            [
+                'json' => $capture
+            ],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function void(TransactionVoid $void): ResponseInterface
+    public function void(
+        TransactionVoid      $void,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/void', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url, [
-            'json' => $void
-        ]);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/void',
+            [
+                'json' => $void
+            ],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function register(TransactionRegister $transaction): ResponseInterface
+    public function register(
+        TransactionRegister  $transaction,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/register', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url, [
-            'json' => $transaction
-        ]);
+        return $this->request(
+            'POST', '
+            /api/v3/transaction/{apiKey}/register',
+            [
+                'json' => $transaction
+            ],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function deregister(TransactionDeRegister $deregister): ResponseInterface
+    public function deregister(
+        TransactionDeRegister $deregister,
+        ConnectorCredentials  $connectorCredentials,
+        UserCredentials       $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/deregister', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/deregister',
+            [],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function refund(TransactionRefund $transaction): ResponseInterface
+    public function refund(
+        TransactionRefund    $transaction,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/refund', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/refund',
+            [],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function payout(TransactionPayout $transaction): ResponseInterface
+    public function payout(
+        TransactionPayout    $transaction,
+        ConnectorCredentials $connectorCredentials,
+        UserCredentials      $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/payout', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/payout',
+            [],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 
-    public function incrementalAuthorization(TransactionIncrementalAuthorization $transaction): ResponseInterface
+    public function incrementalAuthorization(
+        TransactionIncrementalAuthorization $transaction,
+        ConnectorCredentials                $connectorCredentials,
+        UserCredentials                     $userCredentials,
+    ): ResponseInterface
     {
-        $url = strtr('/api/v3/transaction/{apiKey}/incrementalAuthorization', [
-            '{apiKey}' => $this->apiKey,
-        ]);
-
-        return $this->request('POST', $url);
+        return $this->request(
+            'POST',
+            '/api/v3/transaction/{apiKey}/incrementalAuthorization',
+            [],
+            $connectorCredentials,
+            $userCredentials
+        );
     }
 }

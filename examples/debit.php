@@ -7,12 +7,28 @@ $password = '';
 $apiToken = '';
 $sharedToken = '';
 
+/**
+ * Put your own credentials file with variables $user, $password, $apiToken, $sharedToken
+ */
+
+require_once('./credentials.php');
+
+/**
+ * Credentials could be used in global config for http client
+ * OR
+ * Credentials could be used specifically for each request because we may have variety of connectors
+ */
+$userCredentials      = new \Jaddek\Ixopay\Http\UserCredentials($user, $password);
+$connectorCredentials = new \Jaddek\Ixopay\Http\ConnectorCredentials($apiToken, $sharedToken);
+
+
+/**
+ * \Jaddek\Ixopay\Http\Endpoint\Transactions::class
+ * Or
+ * \Jaddek\Ixopay\Http\Endpoint\Schedules::class
+ */
 $endpoint = \Jaddek\Ixopay\Http\FactorySandbox::buildEndpoint(
     \Jaddek\Ixopay\Http\Endpoint\Transactions::class,
-    $user,
-    $password,
-    $apiToken,
-    $sharedToken
 );
 
 $debit = new \Jaddek\Ixopay\Http\Request\Transaction\TransactionDebit(
@@ -21,13 +37,10 @@ $debit = new \Jaddek\Ixopay\Http\Request\Transaction\TransactionDebit(
     currency: 'EUR'
 );
 
-$result = $endpoint->debit($debit);
-
-
-//$provider = new \Jaddek\Ixopay\Http\Provider\TransactionProvider($endpoint);
-//$decorator = new \Jaddek\Ixopay\Http\Provider\TransactionProviderHydrationDecorator($provider);
-
+$result = $endpoint->debit(
+    $debit,
+    $connectorCredentials,
+    $userCredentials
+);
 
 print_r($result->toArray());
-//print_r($provider->debit($debit));
-//print_r($decorator->debit($debit));

@@ -8,27 +8,16 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Factory
 {
-    public static function buildCollection(string $user, string $password, string $apiToken, string $sharedToken): EndpointCollection
+    public static function buildEndpoint(string $class): Endpoint
     {
-        $signer     = new Signer($sharedToken, $apiToken);
-        $httpClient = self::getHttpClient($user, $password);
+        $httpClient = self::getHttpClient();
 
-        return new EndpointCollection($httpClient, $signer, $apiToken);
+        return new $class($httpClient);
     }
 
-    public static function buildEndpoint(string $class, string $user, string $password, string $apiToken, string $sharedToken): Endpoint
+    protected static function getHttpClient(): HttpClientInterface
     {
-        $signer     = new Signer($sharedToken, $apiToken);
-        $httpClient = self::getHttpClient($user, $password);
-
-        return new $class($httpClient, $signer, $apiToken);
-    }
-
-    protected static function getHttpClient(string $user, $password): HttpClientInterface
-    {
-        return HttpClient::createForBaseUri(self::getHost(), [
-            'auth_basic' => [$user, $password],
-        ]);
+        return HttpClient::createForBaseUri(self::getHost());
     }
 
     protected static function getHost(): string
