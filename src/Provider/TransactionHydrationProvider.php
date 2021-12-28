@@ -21,7 +21,7 @@ use Jaddek\Ixopay\Http\Response\ItemInterface;
 use Jaddek\Ixopay\Http\Response\Transaction\Debit as DebitResponse;
 use Jaddek\Ixopay\Http\UserCredentials;
 
-final class TransactionHydrationProvider extends Provider
+class TransactionHydrationProvider extends Provider
 {
     public function __construct(private TransactionEndpoint $endpoint)
     {
